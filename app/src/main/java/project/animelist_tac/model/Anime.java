@@ -1,4 +1,4 @@
-package com.example.animelist.model;
+package project.animelist_tac.model;
 
 public class Anime {
     private final int id;
@@ -9,8 +9,6 @@ public class Anime {
     private String dateDebut;
     private String dateFin;
     private String type;
-
-    //ajouter date_debut, date_fin, type
 
     public Anime(int id){
         this.id = id;
