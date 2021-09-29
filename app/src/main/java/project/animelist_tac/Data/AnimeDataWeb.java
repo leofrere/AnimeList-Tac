@@ -28,12 +28,11 @@ public class AnimeDataWeb {
 
     public List<Anime> getAllAnime(String searchString) throws IOException {
         OkHttpClient client = new OkHttpClient();
-        com.squareup.okhttp.Request request = requestAllAnime(searchString) ;
-        Response res = client.newCall(request).execute();
-        String response = res.body().string();
-        GsonBuilder respon = new GsonBuilder();
-        Gson gson = respon.create();
-        Map result = gson.fromJson(response, Map.class);
+        Response response = client.newCall(requestAllAnime(searchString)).execute();
+        String responseJson = response.body().string();
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        Gson gson = gsonBuilder.create();
+        Map result = gson.fromJson(responseJson, Map.class);
         ArrayList<Map> resultat = (ArrayList<Map>) result.get("results");
         return listAnime(resultat);
     }
