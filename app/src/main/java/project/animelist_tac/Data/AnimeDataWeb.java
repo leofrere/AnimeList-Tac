@@ -15,7 +15,7 @@ import project.animelist_tac.model.Anime;
 
 public class AnimeDataWeb {
     private int limit = 20;
-    // La majeure parti du code pour créer des requête provient de https://rapidapi.com/theapiguy/api/jikan1/
+    // La majeure parti du code pour créer des requetes provient de https://rapidapi.com/theapiguy/api/jikan1/
     public com.squareup.okhttp.Request requestAllAnime(String searchString){
         com.squareup.okhttp.Request request = new com.squareup.okhttp.Request.Builder()
                 .url("https://jikan1.p.rapidapi.com/search/anime?q=" + searchString + "&limit="+limit)
