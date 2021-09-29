@@ -1,12 +1,17 @@
 package project.animelist_tac.Data;
 
-import android.app.DownloadManager;
-
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+import project.animelist_tac.model.Anime;
 
 public class AnimeDataWeb {
     private int limit = 20;
@@ -20,4 +25,34 @@ public class AnimeDataWeb {
                 .build();
         return request;
     }
+
+    public List<Anime> getAllAnime(String searchString) throws IOException {
+        OkHttpClient client = new OkHttpClient();
+        com.squareup.okhttp.Request request = requestAllAnime(searchString) ;
+        Response res = client.newCall(request).execute();
+        String response = res.body().string();
+        GsonBuilder respon = new GsonBuilder();
+        Gson gson = respon.create();
+        Map result = gson.fromJson(response, Map.class);
+        ArrayList<Map> resultat = (ArrayList<Map>) result.get("results");
+        return listAnime(resultat);
+    }
+
+    private  List<Anime> listAnime(ArrayList<Map> resultat) {
+        LinkedList<Anime> animeList = new LinkedList<Anime>();
+        for (Map map: resultat) {
+            Anime anime = new Anime((int) Math.round((double) map.get("mal_id")));
+            anime.imgUrl((String) map.get("image_url"));
+            anime.title((String) map.get("title"));
+            anime.synopsis((String) map.get("synopsis"));
+            anime.nbEpisode((int) Math.round((double) map.get("episodes")));
+            anime.dateDebut((String) map.get("date_Debut"));
+            anime.dateFin((String) map.get("date_Fin"));
+            anime.type((String) map.get("type"));
+            animeList.add(anime);
+        }
+        return animeList;
+    }
+
+
 }
