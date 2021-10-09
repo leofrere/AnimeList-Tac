@@ -45,8 +45,8 @@ public class AnimeWebDatabase {
             anime.title((String) map.get("title"));
             anime.synopsis((String) map.get("synopsis"));
             anime.nbEpisode((int) Math.round((double) map.get("episodes")));
-            anime.dateDebut((String) map.get("date_Debut"));
-            anime.dateFin((String) map.get("date_Fin"));
+            anime.startDate((String) map.get("date_Debut"));
+            anime.endDate((String) map.get("date_Fin"));
             anime.type((String) map.get("type"));
             animeList.add(anime);
         }

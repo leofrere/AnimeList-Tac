@@ -6,8 +6,8 @@ public class Anime {
     private String title;
     private String synopsis;
     private int nbEpisode;
-    private String dateDebut;
-    private String dateFin;
+    private String startDate;
+    private String endDate;
     private String type;
 
     public Anime(int id){
@@ -50,20 +50,20 @@ public class Anime {
         this.nbEpisode = nbEpisode;
     }
 
-    public String dateDebut(){
-        return dateDebut;
+    public String startDate(){
+        return startDate;
     }
 
-    public void dateDebut(String dateDebut){
-        this.dateDebut = dateDebut;
+    public void startDate(String dateDebut){
+        this.startDate = dateDebut;
     }
 
-    public String dateFin(){
-        return dateFin;
+    public String endDate(){
+        return endDate;
     }
 
-    public void dateFin(String dateFin){
-        this.dateFin = dateFin;
+    public void endDate(String dateFin){
+        this.endDate = dateFin;
     }
 
     public String type(){
