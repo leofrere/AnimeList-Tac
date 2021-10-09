@@ -1,4 +1,4 @@
-package project.animelist_tac.Data;
+package project.animelist_tac.data.webData;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -13,7 +13,7 @@ import java.util.Map;
 
 import project.animelist_tac.model.Anime;
 
-public class AnimeDataWeb {
+public class AnimeWebDatabase {
     private int limit = 20;
     // La majeure parti du code pour créer des requetes provient de https://rapidapi.com/theapiguy/api/jikan1/
     public com.squareup.okhttp.Request requestAllAnime(String searchString){
