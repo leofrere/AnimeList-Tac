@@ -27,8 +27,6 @@ public class DataRepository {
     private class AsyncTaskRunner extends AsyncTask<String, String, List<Anime>> {
 
         private String searchString;
-        private View view;
-        private SearchViewModel viewModel;
         private List<Anime> animeList;
 
         public AsyncTaskRunner(String search){
