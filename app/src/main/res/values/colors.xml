@@ -7,4 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="orange">#FF9800</color>
+    <color name="darkorange">#FF5722</color>
+    <color name="recycler_view_item_solid">#2196F3</color>
+    <color name="recycler_view_item_stroke">#03A9F4</color>
 </resources>
