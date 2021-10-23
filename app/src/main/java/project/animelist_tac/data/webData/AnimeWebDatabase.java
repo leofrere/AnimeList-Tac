@@ -14,7 +14,7 @@ import java.util.Map;
 import project.animelist_tac.model.Anime;
 
 public class AnimeWebDatabase {
-    private int limit = 20;
+    private int limit = 50;
     // La majeure parti du code pour créer des requetes provient de https://rapidapi.com/theapiguy/api/jikan1/
     public com.squareup.okhttp.Request requestAllAnime(String searchString){
         com.squareup.okhttp.Request request = new com.squareup.okhttp.Request.Builder()
@@ -42,8 +42,12 @@ public class AnimeWebDatabase {
         for (Map map: resultat) {
             Anime anime = new Anime((int) Math.round((double) map.get("mal_id")));
             anime.imgUrl((String) map.get("image_url"));
-            anime.title((String) map.get("title"));
-            anime.synopsis((String) map.get("synopsis"));
+            String title = (String) map.get("title");
+            title = title.replaceAll("\"", "'");
+            anime.title(title);
+            String sysnospsis = (String) map.get("synopsis");
+            sysnospsis = sysnospsis.replaceAll("\"", "'");
+            anime.synopsis(sysnospsis);
             anime.nbEpisode((int) Math.round((double) map.get("episodes")));
             anime.startDate((String) map.get("date_Debut"));
             anime.endDate((String) map.get("date_Fin"));
