@@ -21,7 +21,7 @@ public class AccesFavoriteAnimeDatabase {
 
     public void addFavoriteAnime(Anime anime){
         sqLiteDatabase = database.getWritableDatabase();
-        String request = "insert into anime (mal_id, title, synopsis, date_debut, date_fin, type, img_url, nb_episode)"
+        String request = "insert into anime (mal_id, title, synopsis, start_date, end_date, type, img_url, nb_episode)"
                 + "values (" + anime.id() + ",\"" + anime.title() + "\",\"" + anime.synopsis() + "\",\"" + anime.startDate()
                 + "\",\"" + anime.endDate() + "\",\"" + anime.type() + "\",\"" + anime.imgUrl() + "\"," + anime.nbEpisode() + ")";
         sqLiteDatabase.execSQL(request);
@@ -31,6 +31,15 @@ public class AccesFavoriteAnimeDatabase {
         sqLiteDatabase = database.getWritableDatabase();
         String request = "delete from anime where mal_id=" + mal_id;
         sqLiteDatabase.execSQL(request);
+    }
+
+    public boolean isFavoriteAnime(int mal_id){
+        sqLiteDatabase = database.getReadableDatabase();
+        Anime anime = null;
+        String request = "select * from anime where mal_id=" + mal_id;
+        Cursor cursor = sqLiteDatabase.rawQuery(request, null);
+        cursor.moveToFirst();
+        return cursor.isFirst();
     }
 
     public Anime getFavoriteAnime(int mal_id){
