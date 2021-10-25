@@ -1,5 +1,7 @@
 package project.animelist_tac.adapter;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import java.util.List;
 
 import project.animelist_tac.R;
 import project.animelist_tac.model.Anime;
+import project.animelist_tac.view.DetailActivity;
 
 public class FavoriAdapter extends RecyclerView.Adapter<FavoriAdapter.FavoriViewHolder> {
 
@@ -30,8 +33,24 @@ public class FavoriAdapter extends RecyclerView.Adapter<FavoriAdapter.FavoriView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FavoriViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FavoriViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Picasso.with(holder.itemImage.getContext()).load(animeList.get(position).imgUrl()).into(holder.itemImage);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), DetailActivity.class);
+                intent.putExtra("title", animeList.get(position).title());
+                intent.putExtra("synopsis", animeList.get(position).synopsis());
+                intent.putExtra("startDate", animeList.get(position).startDate());
+                intent.putExtra("endDate", animeList.get(position).endDate());
+                intent.putExtra("type", animeList.get(position).type());
+                intent.putExtra("episode", animeList.get(position).nbEpisode());
+                intent.putExtra("imageURL", animeList.get(position).imgUrl());
+                intent.putExtra("id", animeList.get(position).id());
+                view.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
