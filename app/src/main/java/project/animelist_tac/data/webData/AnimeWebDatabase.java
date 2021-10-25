@@ -49,8 +49,12 @@ public class AnimeWebDatabase {
             sysnospsis = sysnospsis.replaceAll("\"", "'");
             anime.synopsis(sysnospsis);
             anime.nbEpisode((int) Math.round((double) map.get("episodes")));
-            anime.startDate((String) map.get("date_Debut"));
-            anime.endDate((String) map.get("date_Fin"));
+            String beginDate = (String) map.get("start_date");
+            String[] elementOfBeginDate = beginDate.split("T");
+            anime.startDate(elementOfBeginDate[0]);
+            String endDate = (String) map.get("end_date");
+            String[] elementOfEndDate = beginDate.split("T");
+            anime.endDate(elementOfEndDate[0]);
             anime.type((String) map.get("type"));
             animeList.add(anime);
         }
