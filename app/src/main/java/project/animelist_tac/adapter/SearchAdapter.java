@@ -1,5 +1,7 @@
 package project.animelist_tac.adapter;
 
+import android.content.Intent;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import java.util.List;
 import project.animelist_tac.R;
 import project.animelist_tac.data.DataRepository;
 import project.animelist_tac.model.Anime;
+import project.animelist_tac.view.DetailActivity;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder> {
 
@@ -50,6 +53,23 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
                 } else {
                     dataRepository.deleteFavoriteAnime(animeList.get(position).id());
                 }
+            }
+        });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), DetailActivity.class);
+                //intent.putExtra("anime", (Parcelable) animeList.get(position));
+                intent.putExtra("title", animeList.get(position).title());
+                intent.putExtra("synopsis", animeList.get(position).synopsis());
+                intent.putExtra("startDate", animeList.get(position).startDate());
+                intent.putExtra("endDate", animeList.get(position).endDate());
+                intent.putExtra("type", animeList.get(position).type());
+                intent.putExtra("episode", animeList.get(position).nbEpisode());
+                intent.putExtra("imageURL", animeList.get(position).imgUrl());
+                intent.putExtra("id", animeList.get(position).id());
+                view.getContext().startActivity(intent);
             }
         });
 
