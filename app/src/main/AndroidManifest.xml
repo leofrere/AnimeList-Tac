@@ -13,9 +13,11 @@
         android:theme="@style/Theme.AnimeList_TAC">
         <activity
             android:name=".view.DetailActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".view.MainActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
