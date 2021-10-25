@@ -21,7 +21,7 @@ public class SearchViewModel extends ViewModel {
     }
 
     public void searchAction(String searchString){
-        if (searchString.length() > 3){
+        if (searchString.length() > 2){
             dataRepository.searchAnime(searchString, this);
         }
     }

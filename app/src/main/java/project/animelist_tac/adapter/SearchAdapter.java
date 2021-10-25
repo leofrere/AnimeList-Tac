@@ -1,5 +1,6 @@
 package project.animelist_tac.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
@@ -40,7 +41,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SearchAdapter.SearchViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SearchAdapter.SearchViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Picasso.with(holder.itemImage.getContext()).load(animeList.get(position).imgUrl()).into(holder.itemImage);
         holder.itemTitle.setText(animeList.get(position).title());
         holder.itemSwitch().setChecked(dataRepository.isFavoriteAnime(animeList.get(position).id()));
@@ -48,7 +49,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean status) {
                 if (status){
-                    System.out.println(animeList.get(position).synopsis());
                    dataRepository.addFavoriteAnime(animeList.get(position));
                 } else {
                     dataRepository.deleteFavoriteAnime(animeList.get(position).id());
@@ -60,7 +60,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), DetailActivity.class);
-                //intent.putExtra("anime", (Parcelable) animeList.get(position));
                 intent.putExtra("title", animeList.get(position).title());
                 intent.putExtra("synopsis", animeList.get(position).synopsis());
                 intent.putExtra("startDate", animeList.get(position).startDate());

@@ -39,6 +39,7 @@ public class AnimeWebDatabase {
 
     private  List<Anime> listAnime(ArrayList<Map> resultat) {
         LinkedList<Anime> animeList = new LinkedList<Anime>();
+        int i = 1;
         for (Map map: resultat) {
             Anime anime = new Anime((int) Math.round((double) map.get("mal_id")));
             anime.imgUrl((String) map.get("image_url"));
@@ -49,13 +50,27 @@ public class AnimeWebDatabase {
             sysnospsis = sysnospsis.replaceAll("\"", "'");
             anime.synopsis(sysnospsis);
             anime.nbEpisode((int) Math.round((double) map.get("episodes")));
+
             String beginDate = (String) map.get("start_date");
-            String[] elementOfBeginDate = beginDate.split("T");
-            anime.startDate(elementOfBeginDate[0]);
+            if(beginDate != null){
+                String[] elementOfBeginDate = beginDate.split("T");
+                anime.startDate(elementOfBeginDate[0]);
+            } else {
+                anime.startDate("inconnue");
+            }
+
             String endDate = (String) map.get("end_date");
-            String[] elementOfEndDate = beginDate.split("T");
-            anime.endDate(elementOfEndDate[0]);
+            System.out.println(endDate);
+            if(endDate != null){
+               String[] elementOfEndDate = endDate.split("T");
+                anime.endDate(elementOfEndDate[0]);
+            } else {
+                anime.endDate("inconnue");
+            }
+
             anime.type((String) map.get("type"));
+            System.out.println(i);
+            i++;
             animeList.add(anime);
         }
         return animeList;
