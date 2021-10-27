@@ -14,7 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintWidth_percent="1"
         tools:itemCount="50"
-        tools:listitem="@layout/recycler_view_item" />
+        tools:listitem="@layout/search_recycler_item" />
 
     <SearchView
         android:id="@+id/searchBar"

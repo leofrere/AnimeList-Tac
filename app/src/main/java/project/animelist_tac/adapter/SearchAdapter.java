@@ -2,7 +2,6 @@ package project.animelist_tac.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +35,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     @NonNull
     @Override
     public SearchAdapter.SearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_recycler_item, parent, false);
         return new SearchViewHolder(view);
     }
 
