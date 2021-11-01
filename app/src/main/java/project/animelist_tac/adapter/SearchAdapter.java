@@ -1,7 +1,9 @@
 package project.animelist_tac.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,26 +12,35 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
 import java.util.List;
 
 import project.animelist_tac.R;
 import project.animelist_tac.data.DataRepository;
 import project.animelist_tac.model.Anime;
 import project.animelist_tac.view.DetailActivity;
+import project.animelist_tac.view.SearchFragment;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder> {
 
     private List<Anime> animeList;
     private DataRepository dataRepository;
+    private SearchFragment fragment;
 
-    public SearchAdapter(List<Anime> animeList, DataRepository dataRepository){
+    public SearchAdapter(List<Anime> animeList, DataRepository dataRepository, SearchFragment fragment){
         this.animeList = animeList;
         this.dataRepository = dataRepository;
+        this.fragment = fragment;
     }
 
     @NonNull
@@ -77,7 +88,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
                 intent.putExtra("episode", animeList.get(position).nbEpisode());
                 intent.putExtra("imageURL", animeList.get(position).imgUrl());
                 intent.putExtra("id", animeList.get(position).id());
-                view.getContext().startActivity(intent);
+                fragment.launchDetailActivity(intent);
             }
         });
 

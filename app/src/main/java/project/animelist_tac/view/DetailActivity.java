@@ -1,12 +1,15 @@
 package project.animelist_tac.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -42,6 +45,7 @@ public class DetailActivity extends AppCompatActivity {
         binding.leaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                setResult(Activity.RESULT_OK, new Intent());
                 finish();
             }
         });
@@ -56,7 +60,6 @@ public class DetailActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     public Anime createAnime(Intent intent){

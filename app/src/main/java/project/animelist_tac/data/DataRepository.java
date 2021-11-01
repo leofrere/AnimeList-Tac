@@ -83,8 +83,7 @@ public class DataRepository {
 
         @Override
         protected void onPostExecute(List<Anime> result) {
-            SearchAdapter adapter = new SearchAdapter(result, dataRepository);
-            viewModel.setAdapter(adapter);
+            viewModel.setAdapter(result);
         }
 
         @Override
