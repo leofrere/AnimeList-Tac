@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,6 +30,7 @@ public class FavoriFragment extends Fragment {
         View view = binding.getRoot();
         dataRepository = new DataRepository(view.getContext());
         layoutManager = new LinearLayoutManager(view.getContext());
+        layoutManager = new GridLayoutManager(view.getContext(),4);
         binding.favoriteRecyclerView.setLayoutManager(layoutManager);
         FavoriAdapter favoriAdapter = new FavoriAdapter(dataRepository.getAllFavoriteAnime());
         binding.favoriteRecyclerView.setAdapter(favoriAdapter);
