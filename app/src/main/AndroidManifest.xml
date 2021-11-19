@@ -10,7 +10,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AnimeList_TAC">
+        android:theme="@style/Theme.AnimeList_TAC"
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".view.DetailActivity"
             android:screenOrientation="portrait"

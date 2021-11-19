@@ -16,7 +16,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="1"
-        tools:layoutManager="GridLayoutManager"
-        tools:listitem="@layout/recycler_view_item_1"
-        tools:spanCount="5" />
+        tools:listitem="@layout/recycler_view_item" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -63,14 +63,15 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     public Anime createAnime(Intent intent){
-        Anime anime = new Anime(intent.getIntExtra("id",-1));
-        anime.title(intent.getStringExtra("title"));
-        anime.synopsis(intent.getStringExtra("synopsis"));
-        anime.imgUrl(intent.getStringExtra("imageURL"));
-        anime.type(intent.getStringExtra("type"));
-        anime.startDate(intent.getStringExtra("startDate"));
-        anime.endDate(intent.getStringExtra("endDate"));
-        anime.nbEpisode(intent.getIntExtra("episode", 0));
+        Anime anime = new Anime();
+        anime.id = intent.getIntExtra("id",-1);
+        anime.title = intent.getStringExtra("title");
+        anime.synopsis = (intent.getStringExtra("synopsis"));
+        anime.image_url = (intent.getStringExtra("imageURL"));
+        anime.type = (intent.getStringExtra("type"));
+        anime.start_date = (intent.getStringExtra("startDate"));
+        anime.end_date = (intent.getStringExtra("endDate"));
+        anime.episodes = (intent.getIntExtra("episode", 0));
         return anime;
     }
 }
