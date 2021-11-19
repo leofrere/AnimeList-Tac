@@ -82,8 +82,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
                 Intent intent = new Intent(view.getContext(), DetailActivity.class);
                 intent.putExtra("title", animeList.get(position).title);
                 intent.putExtra("synopsis", animeList.get(position).synopsis);
-                intent.putExtra("startDate", animeList.get(position).start_date);
-                intent.putExtra("endDate", animeList.get(position).end_date);
+                intent.putExtra("startDate", animeList.get(position).getStart_date());
+                intent.putExtra("endDate", animeList.get(position).getEnd_date());
                 intent.putExtra("type", animeList.get(position).type);
                 intent.putExtra("episode", animeList.get(position).episodes);
                 intent.putExtra("imageURL", animeList.get(position).image_url);

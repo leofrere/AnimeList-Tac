@@ -22,8 +22,8 @@ public class AccesFavoriteAnimeDatabase {
     public void addFavoriteAnime(Anime anime){
         sqLiteDatabase = database.getWritableDatabase();
         String request = "insert into anime (mal_id, title, synopsis, start_date, end_date, type, img_url, nb_episode)"
-                + "values (" + anime.id + ",\"" + anime.title.replace("\"", "'") + "\",\"" + anime.synopsis.replace("\"", "'") + "\",\"" + anime.start_date
-                + "\",\"" + anime.end_date + "\",\"" + anime.type + "\",\"" + anime.image_url + "\"," + anime.episodes + ")";
+                + "values (" + anime.id + ",\"" + anime.title.replace("\"", "'") + "\",\"" + anime.synopsis.replace("\"", "'") + "\",\"" + anime.getStart_date()
+                + "\",\"" + anime.getEnd_date() + "\",\"" + anime.type + "\",\"" + anime.image_url + "\"," + anime.episodes + ")";
         sqLiteDatabase.execSQL(request);
     }
 

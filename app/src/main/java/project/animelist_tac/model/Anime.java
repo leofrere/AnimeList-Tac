@@ -32,9 +32,23 @@ public class Anime {
     @Expose
     public String start_date;
 
+    public String getStart_date(){
+        if(start_date == null){
+            return "inconnue";
+        }
+        return start_date.split("T")[0];
+    }
+
     @SerializedName("end_date")
     @Expose
     public String end_date;
+
+    public String getEnd_date(){
+        if(end_date == null){
+            return "inconnue";
+        }
+        return end_date.split("T")[0];
+    }
 
 }
 
