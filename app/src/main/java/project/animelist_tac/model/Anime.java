@@ -1,77 +1,40 @@
 package project.animelist_tac.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Anime {
-    private final int id;
-    private String imgUrl;
-    private String title;
-    private String synopsis;
-    private int nbEpisode;
-    private String startDate;
-    private String endDate;
-    private String type;
+    @SerializedName("mal_id")
+    @Expose
+    public int id;
 
-    public Anime(int id){
-        this.id = id;
-    }
+    @SerializedName("image_url")
+    @Expose
+    public String image_url;
 
-    public int id(){
-        return id;
-    }
+    @SerializedName("title")
+    @Expose
+    public String title;
 
-    public String imgUrl(){
-        return imgUrl;
-    }
+    @SerializedName("synopsis")
+    @Expose
+    public String synopsis;
 
-    public void imgUrl(String imgUrl){
-        this.imgUrl = imgUrl;
-    }
+    @SerializedName("type")
+    @Expose
+    public String type;
 
-    public String title(){
-        return title;
-    }
+    @SerializedName("episodes")
+    @Expose
+    public Integer episodes;
 
-    public void title(String title){
-        this.title = title;
-    }
+    @SerializedName("start_date")
+    @Expose
+    public String start_date;
 
-    public String synopsis(){
-        return synopsis;
-    }
-
-    public void synopsis(String synopsis){
-        this.synopsis = synopsis;
-    }
-
-    public int nbEpisode(){
-        return nbEpisode;
-    }
-
-    public void nbEpisode(int nbEpisode){
-        this.nbEpisode = nbEpisode;
-    }
-
-    public String startDate(){
-        return startDate;
-    }
-
-    public void startDate(String dateDebut){
-        this.startDate = dateDebut;
-    }
-
-    public String endDate(){
-        return endDate;
-    }
-
-    public void endDate(String dateFin){
-        this.endDate = dateFin;
-    }
-
-    public String type(){
-        return type;
-    }
-
-    public void type(String type){
-        this.type = type;
-    }
+    @SerializedName("end_date")
+    @Expose
+    public String end_date;
 
 }
+
