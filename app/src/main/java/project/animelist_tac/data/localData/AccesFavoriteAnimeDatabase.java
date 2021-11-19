@@ -22,8 +22,8 @@ public class AccesFavoriteAnimeDatabase {
     public void addFavoriteAnime(Anime anime){
         sqLiteDatabase = database.getWritableDatabase();
         String request = "insert into anime (mal_id, title, synopsis, start_date, end_date, type, img_url, nb_episode)"
-                + "values (" + anime.id() + ",\"" + anime.title() + "\",\"" + anime.synopsis() + "\",\"" + anime.startDate()
-                + "\",\"" + anime.endDate() + "\",\"" + anime.type() + "\",\"" + anime.imgUrl() + "\"," + anime.nbEpisode() + ")";
+                + "values (" + anime.id + ",\"" + anime.title.replace("\"", "'") + "\",\"" + anime.synopsis.replace("\"", "'") + "\",\"" + anime.start_date
+                + "\",\"" + anime.end_date + "\",\"" + anime.type + "\",\"" + anime.image_url + "\"," + anime.episodes + ")";
         sqLiteDatabase.execSQL(request);
     }
 
@@ -71,14 +71,15 @@ public class AccesFavoriteAnimeDatabase {
 
     private Anime createAnime(Cursor cursor) {
         Anime anime;
-        anime = new Anime(cursor.getInt(0));
-        anime.title(cursor.getString(1));
-        anime.synopsis(cursor.getString(2));
-        anime.startDate(cursor.getString(3));
-        anime.endDate(cursor.getString(4));
-        anime.type(cursor.getString(5));
-        anime.imgUrl(cursor.getString(6));
-        anime.nbEpisode(cursor.getInt(7));
+        anime = new Anime();
+        anime.id = cursor.getInt(0);
+        anime.title = cursor.getString(1);
+        anime.synopsis= cursor.getString(2);
+        anime.start_date = cursor.getString(3);
+        anime.end_date = cursor.getString(4);
+        anime.type = cursor.getString(5);
+        anime.image_url = cursor.getString(6);
+        anime.episodes = cursor.getInt(7);
         return anime;
     }
 
