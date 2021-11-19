@@ -1,29 +1,30 @@
 package project.animelist_tac.data;
 
 import android.content.Context;
-import android.os.AsyncTask;
-import android.view.View;
+import android.util.Log;
 
-import androidx.lifecycle.ViewModel;
-
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
-import project.animelist_tac.adapter.SearchAdapter;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.observers.DisposableSingleObserver;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import project.animelist_tac.data.localData.AccesFavoriteAnimeDatabase;
-import project.animelist_tac.data.webData.AnimeWebDatabase;
+import project.animelist_tac.data.webData.JinkanClient;
 import project.animelist_tac.model.Anime;
+import project.animelist_tac.model.Response;
 import project.animelist_tac.viewModel.SearchViewModel;
 
 public class DataRepository {
 
-    private AnimeWebDatabase distanteRepository;
+    private List<Anime> animeList = new ArrayList<>();
     private AccesFavoriteAnimeDatabase favoriteAnimeDatabase;
 
 
     public DataRepository(Context context){
         favoriteAnimeDatabase = new AccesFavoriteAnimeDatabase(context);
-        distanteRepository = new AnimeWebDatabase();
     }
 
     //Local
@@ -50,48 +51,21 @@ public class DataRepository {
 
     //Distance
     public void searchAnime(String search, SearchViewModel viewModel){
-        AsyncTaskRunner runner = new AsyncTaskRunner(search, viewModel, this);
-        runner.execute();
-    }
+        Single<Response> result = JinkanClient.getInstance().getMyApi().getAnimes(search)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
 
-    private class AsyncTaskRunner extends AsyncTask<String, String, List<Anime>> {
+        result.subscribeWith(new DisposableSingleObserver<Response>() {
 
-        private String searchString;
-        private SearchViewModel viewModel;
-        private List<Anime> animeList;
-        private DataRepository dataRepository;
-
-        public AsyncTaskRunner(String search, SearchViewModel viewModel, DataRepository dataRepository){
-            searchString = search;
-            this.viewModel = viewModel;
-            this.dataRepository = dataRepository;
-        }
-
-        public List<Anime> animeList(){
-            return animeList;
-        }
-
-        @Override
-        protected List<Anime> doInBackground(String... params) {
-            try {
-                return distanteRepository.getAllAnime(searchString);
-            }catch (Exception e){
-                return new LinkedList<Anime>() {
-                };
+            @Override
+            public void onSuccess(@NonNull Response response) {
+                viewModel.setAdapter(response.results);
             }
-        }
 
-        @Override
-        protected void onPostExecute(List<Anime> result) {
-            viewModel.setAdapter(result);
-        }
-
-        @Override
-        protected void onPreExecute() {
-        }
-
-        @Override
-        protected void onProgressUpdate(String... text) {
-        }
+            @Override
+            public void onError(@NonNull Throwable e) {
+                Log.d("LF", e.getMessage());
+            }
+        });
     }
 }
