@@ -14,10 +14,16 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
+
+import project.animelist_tac.adapter.SearchAdapter;
+import project.animelist_tac.data.DataRepository;
 import project.animelist_tac.databinding.SearchFragmentBinding;
+import project.animelist_tac.model.Anime;
 import project.animelist_tac.viewModel.SearchViewModel;
 
 public class SearchFragment extends Fragment {
@@ -28,25 +34,14 @@ public class SearchFragment extends Fragment {
 
     @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        startActivityWithResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-                new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult result) {
-                        String searchString = String.valueOf(binding.searchBar.getQuery());
-                        if (searchString.length() < 3){
-                            searchString = "att";
-                        }
-                        viewModel.searchAction(searchString);
-                    }
-                });
-
-
+        createStartActivityResult();
         binding = SearchFragmentBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         layoutManager = new LinearLayoutManager(view.getContext());
         binding.searchRecycler.setLayoutManager(layoutManager);
-        viewModel = new SearchViewModel(this);
+        viewModel = new SearchViewModel(this.getContext());
+        subscribeViewModel();
+
         binding.searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -63,11 +58,26 @@ public class SearchFragment extends Fragment {
         return view;
     }
 
-    public void launchDetailActivity(Intent intent){
-        startActivityWithResult.launch(intent);
+    private void createStartActivityResult() {
+        startActivityWithResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        String searchString = String.valueOf(binding.searchBar.getQuery());
+                        if (searchString.length() < 3){
+                            searchString = "att";
+                        }
+                        viewModel.searchAction(searchString);
+                    }
+                });
     }
 
-    public RecyclerView searchRecylerView(){
-        return binding.searchRecycler;
+    private void subscribeViewModel(){
+        viewModel.getAnimeList().observe(getViewLifecycleOwner(), new Observer<List<Anime>>() {
+            @Override
+            public void onChanged(List<Anime> animeList) {
+                binding.searchRecycler.setAdapter(new SearchAdapter(animeList, new DataRepository(getContext()), startActivityWithResult));
+            }
+        });
     }
 }

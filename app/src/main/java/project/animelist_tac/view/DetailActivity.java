@@ -14,8 +14,12 @@ import android.widget.Switch;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.observers.DisposableMaybeObserver;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import project.animelist_tac.R;
 import project.animelist_tac.data.DataRepository;
+import project.animelist_tac.data.localData.Entity.AnimeEntity;
 import project.animelist_tac.databinding.ActivityDetailBinding;
 import project.animelist_tac.model.Anime;
 
@@ -49,14 +53,51 @@ public class DetailActivity extends AppCompatActivity {
                 finish();
             }
         });
-        binding.detailSwitch.setChecked(dataRepository.isFavoriteAnime(id));
+        dataRepository.getFavoriteAnime(id).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableMaybeObserver<AnimeEntity>() {
+
+                    @Override
+                    public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull AnimeEntity animeEntity) {
+                        binding.detailSwitch.setChecked(true);
+                    }
+
+                    @Override
+                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
         binding.detailSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean status) {
                 if (status){
-                    dataRepository.addFavoriteAnime(anime);
+                    dataRepository.getFavoriteAnime(id).subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribeWith(new DisposableMaybeObserver<AnimeEntity>() {
+
+                                @Override
+                                public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull AnimeEntity animeEntity) {
+
+                                }
+
+                                @Override
+                                public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+
+                                }
+
+                                @Override
+                                public void onComplete() {
+                                    dataRepository.addFavoriteAnime(anime.asAnimeEntity());
+                                }
+                            });
                 } else {
-                    dataRepository.deleteFavoriteAnime(id);
+                    dataRepository.deleteFavoriteAnime(anime.asAnimeEntity());
                 }
             }
         });
