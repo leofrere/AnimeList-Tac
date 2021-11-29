@@ -2,8 +2,6 @@ package project.animelist_tac.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +13,15 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import io.reactivex.rxjava3.observers.DisposableSingleObserver;
+import java.util.List;
+
 import project.animelist_tac.adapter.FavoriAdapter;
-import project.animelist_tac.data.DataRepository;
+import project.animelist_tac.data.localData.Entity.AnimeEntity;
 import project.animelist_tac.databinding.FavoriFragmentBinding;
 import project.animelist_tac.viewModel.FavoriViewModel;
 
@@ -29,7 +29,6 @@ public class FavoriFragment extends Fragment {
     private FavoriViewModel viewModel;
     private RecyclerView.LayoutManager layoutManager;
     private FavoriFragmentBinding binding;
-    private DataRepository dataRepository;
     private ActivityResultLauncher<Intent> startActivityWithResult;
 
     @Nullable
@@ -38,27 +37,33 @@ public class FavoriFragment extends Fragment {
 
         binding = FavoriFragmentBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
-        dataRepository = new DataRepository(view.getContext());
         layoutManager = new LinearLayoutManager(view.getContext());
         layoutManager = new GridLayoutManager(view.getContext(),3);
         binding.favoriteRecyclerView.setLayoutManager(layoutManager);
-        FavoriAdapter favoriAdapter = new FavoriAdapter(dataRepository.getAllFavoriteAnime(), this);
-        binding.favoriteRecyclerView.setAdapter(favoriAdapter);
-        viewModel = new FavoriViewModel(view);
-        FavoriFragment fragment = this;
+        viewModel = new FavoriViewModel(getContext());
+        subscribeViewModel();
+        viewModel.setFavori();
+        createStartActivityResult();
+        return view;
+    }
+
+    private void createStartActivityResult() {
         startActivityWithResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
                     public void onActivityResult(ActivityResult result) {
-                        FavoriAdapter favoriAdapter = new FavoriAdapter(dataRepository.getAllFavoriteAnime(), fragment);
-                        binding.favoriteRecyclerView.setAdapter(favoriAdapter);
+                       viewModel.setFavori();
                     }
                 });
-
-        return view;
     }
 
-    public void launchDetailActivity(Intent intent){
-        startActivityWithResult.launch(intent);
+    private void subscribeViewModel(){
+        viewModel.getAnimeEntitiesList().observe(getViewLifecycleOwner(), new Observer<List<AnimeEntity>>() {
+            @Override
+            public void onChanged(List<AnimeEntity> animeList) {
+                System.out.println(animeList);
+                binding.favoriteRecyclerView.setAdapter(new FavoriAdapter(animeList, startActivityWithResult));
+            }
+        });
     }
 }
