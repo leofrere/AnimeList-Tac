@@ -1,9 +1,7 @@
 package project.animelist_tac.adapter;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,35 +10,33 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
-import java.io.Serializable;
 import java.util.List;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.observers.DisposableMaybeObserver;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import project.animelist_tac.R;
 import project.animelist_tac.data.DataRepository;
+import project.animelist_tac.data.localData.Entity.AnimeEntity;
 import project.animelist_tac.model.Anime;
 import project.animelist_tac.view.DetailActivity;
-import project.animelist_tac.view.SearchFragment;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder> {
 
     private List<Anime> animeList;
     private DataRepository dataRepository;
-    private SearchFragment fragment;
+    private ActivityResultLauncher<Intent> activityResultLauncher;
 
-    public SearchAdapter(List<Anime> animeList, DataRepository dataRepository, SearchFragment fragment){
+    public SearchAdapter(List<Anime> animeList, DataRepository dataRepository, ActivityResultLauncher<Intent> fragment){
         this.animeList = animeList;
         this.dataRepository = dataRepository;
-        this.fragment = fragment;
+        this.activityResultLauncher = fragment;
     }
 
     @NonNull
@@ -64,14 +60,51 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     public void onBindViewHolder(@NonNull SearchAdapter.SearchViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Picasso.with(holder.itemImage.getContext()).load(animeList.get(position).image_url).into(holder.itemImage);
         holder.itemTitle.setText(animeList.get(position).title);
-        holder.itemSwitch().setChecked(dataRepository.isFavoriteAnime(animeList.get(position).id));
+        dataRepository.getFavoriteAnime(animeList.get(position).id).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableMaybeObserver<AnimeEntity>() {
+
+                    @Override
+                    public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull AnimeEntity animeEntity) {
+                        holder.itemSwitch.setChecked(true);
+                    }
+
+                    @Override
+                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
         holder.itemSwitch().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean status) {
                 if (status){
-                   dataRepository.addFavoriteAnime(animeList.get(position));
+                    dataRepository.getFavoriteAnime(animeList.get(position).id).subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribeWith(new DisposableMaybeObserver<AnimeEntity>() {
+
+                                @Override
+                                public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull AnimeEntity animeEntity) {
+
+                                }
+
+                                @Override
+                                public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+
+                                }
+
+                                @Override
+                                public void onComplete() {
+                                    dataRepository.addFavoriteAnime(animeList.get(position).asAnimeEntity());
+                                }
+                            });
                 } else {
-                    dataRepository.deleteFavoriteAnime(animeList.get(position).id);
+                    System.out.println("off");
+                    dataRepository.deleteFavoriteAnime(animeList.get(position).asAnimeEntity());
                 }
             }
         });
@@ -88,7 +121,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
                 intent.putExtra("episode", animeList.get(position).episodes);
                 intent.putExtra("imageURL", animeList.get(position).image_url);
                 intent.putExtra("id", animeList.get(position).id);
-                fragment.launchDetailActivity(intent);
+                activityResultLauncher.launch(intent);
             }
         });
 
