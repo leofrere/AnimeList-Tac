@@ -3,6 +3,8 @@ package project.animelist_tac.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import project.animelist_tac.data.localData.Entity.AnimeEntity;
+
 public class Anime {
     @SerializedName("mal_id")
     @Expose
@@ -48,6 +50,19 @@ public class Anime {
             return "inconnue";
         }
         return end_date.split("T")[0];
+    }
+
+    public AnimeEntity asAnimeEntity(){
+        AnimeEntity animeEntity = new AnimeEntity();
+        animeEntity.setMal_id(id);
+        animeEntity.setImage_url(image_url);
+        animeEntity.setSynopsis(synopsis);
+        animeEntity.setEpisodes(episodes);
+        animeEntity.setStart_date(start_date);
+        animeEntity.setEnd_date(end_date);
+        animeEntity.setType(title);
+        animeEntity.setType(type);
+        return animeEntity;
     }
 
 }
