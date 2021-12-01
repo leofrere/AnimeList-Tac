@@ -17,10 +17,7 @@ import java.util.List;
 
 import project.animelist_tac.R;
 import project.animelist_tac.data.localData.Entity.AnimeEntity;
-import project.animelist_tac.model.Anime;
 import project.animelist_tac.view.DetailActivity;
-import project.animelist_tac.view.FavoriFragment;
-import project.animelist_tac.view.SearchFragment;
 
 public class FavoriAdapter extends RecyclerView.Adapter<FavoriAdapter.FavoriViewHolder> {
 

@@ -8,7 +8,6 @@ import androidx.room.Query;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Maybe;
-import io.reactivex.rxjava3.core.Observable;
 
 import io.reactivex.rxjava3.core.Single;
 import project.animelist_tac.data.localData.Entity.AnimeEntity;

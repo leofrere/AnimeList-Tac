@@ -5,23 +5,17 @@ import android.util.Log;
 
 import androidx.room.Room;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Maybe;
-import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.core.Single;
-import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.observers.DisposableSingleObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
-import project.animelist_tac.data.localData.Dao.AnimeDao;
 import project.animelist_tac.data.localData.Entity.AnimeEntity;
 import project.animelist_tac.data.localData.FavoriteDatabase;
 import project.animelist_tac.data.webData.JinkanClient;
-import project.animelist_tac.model.Anime;
 import project.animelist_tac.model.Response;
 import project.animelist_tac.viewModel.FavoriViewModel;
 import project.animelist_tac.viewModel.SearchViewModel;
