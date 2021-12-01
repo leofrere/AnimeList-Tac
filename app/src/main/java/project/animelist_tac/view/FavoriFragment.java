@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import project.animelist_tac.adapter.FavoriAdapter;
+import project.animelist_tac.data.DataRepository;
 import project.animelist_tac.data.localData.Entity.AnimeEntity;
 import project.animelist_tac.databinding.FavoriFragmentBinding;
 import project.animelist_tac.viewModel.FavoriViewModel;
@@ -62,7 +63,7 @@ public class FavoriFragment extends Fragment {
             @Override
             public void onChanged(List<AnimeEntity> animeList) {
                 System.out.println(animeList);
-                binding.favoriteRecyclerView.setAdapter(new FavoriAdapter(animeList, startActivityWithResult));
+                binding.favoriteRecyclerView.setAdapter(new FavoriAdapter(animeList, new DataRepository(getContext()),startActivityWithResult));
             }
         });
     }
