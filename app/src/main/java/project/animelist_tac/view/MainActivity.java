@@ -20,6 +20,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         BottomNavigationView nav = findViewById(R.id.nav);
+        setNavigationAction(nav);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SearchFragment()).commit();
+
+    }
+
+    private void setNavigationAction(BottomNavigationView nav) {
         nav.setOnItemSelectedListener(new  NavigationBarView.OnItemSelectedListener(){
             public boolean onNavigationItemSelected(@NonNull MenuItem item){
                 Fragment selectedFrag = null;
@@ -37,8 +43,5 @@ public class MainActivity extends AppCompatActivity {
             };
 
         });
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SearchFragment()).commit();
-
     }
 }

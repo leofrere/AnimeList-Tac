@@ -27,6 +27,7 @@ import project.animelist_tac.model.Anime;
 import project.animelist_tac.viewModel.SearchViewModel;
 
 public class SearchFragment extends Fragment {
+
     private SearchViewModel viewModel;
     private RecyclerView.LayoutManager layoutManager;
     private SearchFragmentBinding binding;
@@ -34,14 +35,22 @@ public class SearchFragment extends Fragment {
 
     @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        createStartActivityResult();
+
         binding = SearchFragmentBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
+        viewModel = new SearchViewModel(this.getContext());
+
         layoutManager = new LinearLayoutManager(view.getContext());
         binding.searchRecycler.setLayoutManager(layoutManager);
-        viewModel = new SearchViewModel(this.getContext());
-        subscribeViewModel();
 
+        createStartActivityResult();
+        subscribeViewModel();
+        setSearchAction();
+
+        return view;
+    }
+
+    private void setSearchAction() {
         binding.searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -55,7 +64,6 @@ public class SearchFragment extends Fragment {
                 return false;
             }
         });
-        return view;
     }
 
     private void createStartActivityResult() {
