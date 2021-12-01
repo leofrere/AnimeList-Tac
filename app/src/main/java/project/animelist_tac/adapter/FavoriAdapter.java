@@ -16,17 +16,20 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import project.animelist_tac.R;
+import project.animelist_tac.data.DataRepository;
 import project.animelist_tac.data.localData.Entity.AnimeEntity;
 import project.animelist_tac.view.DetailActivity;
 
 public class FavoriAdapter extends RecyclerView.Adapter<FavoriAdapter.FavoriViewHolder> {
 
     private List<AnimeEntity> animeList;
+    private DataRepository dataRepository;
     private ActivityResultLauncher<Intent> activityResultLauncher;
 
-    public FavoriAdapter(List<AnimeEntity> animeList, ActivityResultLauncher<Intent> fragment){
+    public FavoriAdapter(List<AnimeEntity> animeList,DataRepository dataRepository ,ActivityResultLauncher<Intent> activityResultLauncher){
         this.animeList = animeList;
-        this.activityResultLauncher = fragment;
+        this.dataRepository = dataRepository;
+        this.activityResultLauncher = activityResultLauncher;
     }
 
     @NonNull
@@ -42,16 +45,7 @@ public class FavoriAdapter extends RecyclerView.Adapter<FavoriAdapter.FavoriView
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), DetailActivity.class);
-                intent.putExtra("title", animeList.get(position).getTitle());
-                intent.putExtra("synopsis", animeList.get(position).getSynopsis());
-                intent.putExtra("startDate", animeList.get(position).getStart_date());
-                intent.putExtra("endDate", animeList.get(position).getEnd_date());
-                intent.putExtra("type", animeList.get(position).getType());
-                intent.putExtra("episode", animeList.get(position).getEpisodes());
-                intent.putExtra("imageURL", animeList.get(position).getImage_url());
-                intent.putExtra("id", animeList.get(position).getMal_id());
-                activityResultLauncher.launch(intent);
+                dataRepository.updateAndDisplayFavoriteAnime(animeList.get(position), activityResultLauncher);
             }
         });
     }
