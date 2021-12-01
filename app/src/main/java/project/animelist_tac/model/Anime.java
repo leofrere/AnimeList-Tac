@@ -60,7 +60,7 @@ public class Anime {
         animeEntity.setEpisodes(episodes);
         animeEntity.setStart_date(this.getStart_date());
         animeEntity.setEnd_date(this.getEnd_date());
-        animeEntity.setType(title);
+        animeEntity.setTitle(title);
         animeEntity.setType(type);
         return animeEntity;
     }
