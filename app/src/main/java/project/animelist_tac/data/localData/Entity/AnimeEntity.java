@@ -3,7 +3,10 @@ package project.animelist_tac.data.localData.Entity;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-
+/**
+ * Represent the class for the anime entity
+ * @author Leo Frere, Jeremy Curoux
+ * */
 @Entity
 public class AnimeEntity {
     public int getMal_id() {

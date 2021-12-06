@@ -4,6 +4,10 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * Represent the class to get anime with API Jinkan
+ * @author Leo Frere, Jeremy Curoux*/
+
 public class JinkanClient {
 
     public static String BASE_URL = "https://jikan1.p.rapidapi.com/search/anime/";

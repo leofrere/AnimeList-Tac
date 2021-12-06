@@ -10,6 +10,10 @@ import java.util.List;
 import project.animelist_tac.data.DataRepository;
 import project.animelist_tac.data.localData.Entity.AnimeEntity;
 
+/**
+ * Represent the class for the favori view model
+ * @author Leo Frere, Jeremy Curoux
+ * */
 public class FavoriViewModel extends ViewModel {
 
     public MutableLiveData<List<AnimeEntity>> getAnimeEntitiesList() {

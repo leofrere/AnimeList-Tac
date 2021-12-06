@@ -20,6 +20,10 @@ import project.animelist_tac.data.DataRepository;
 import project.animelist_tac.data.localData.Entity.AnimeEntity;
 import project.animelist_tac.view.DetailActivity;
 
+/**
+ * Represent the class for the favori adapter
+ * @author Leo Frere, Jeremy Curoux
+ * */
 public class FavoriAdapter extends RecyclerView.Adapter<FavoriAdapter.FavoriViewHolder> {
 
     private List<AnimeEntity> animeList;

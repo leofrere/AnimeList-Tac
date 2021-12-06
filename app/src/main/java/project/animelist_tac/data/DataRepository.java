@@ -22,12 +22,18 @@ import project.animelist_tac.model.Response;
 import project.animelist_tac.view.DetailActivity;
 import project.animelist_tac.viewModel.FavoriViewModel;
 import project.animelist_tac.viewModel.SearchViewModel;
-
+/**
+ * Represent the class for the data repository
+ * @author Leo Frere, Jeremy Curoux
+ * */
 public class DataRepository {
 
     private FavoriteDatabase favoriteDatabase;
     private Context context;
 
+    /**
+     * @param context
+     * */
 
     public DataRepository(Context context) {
         this.context = context;
@@ -35,22 +41,34 @@ public class DataRepository {
                 .build();
     }
 
+    /**
+     * @param anime add a favorite
+     **/
     public void addFavoriteAnime(AnimeEntity anime){
         favoriteDatabase.getWriteExecutor().execute(() -> {
             favoriteDatabase.AnimeDao().insert(anime);
         });
     }
 
+    /**
+     * @param animeEntity to delete favorite
+     **/
     public void deleteFavoriteAnime(AnimeEntity animeEntity){
         favoriteDatabase.getWriteExecutor().execute(() -> {
             favoriteDatabase.AnimeDao().delete(animeEntity);
         });
     }
 
+    /**
+     * @param mal_id to recover a anime
+     **/
     public Maybe<AnimeEntity> getFavoriteAnime(int mal_id){
         return favoriteDatabase.AnimeDao().getAnimeEntity(mal_id);
     }
 
+    /**
+     * @param viewModel
+     **/
     public void getAllFavoriteAnime(FavoriViewModel viewModel){
         Single<List<AnimeEntity>> favoriteAnimes = favoriteDatabase.AnimeDao().getAllAnime();
         favoriteAnimes.subscribeOn(Schedulers.io())
@@ -70,7 +88,10 @@ public class DataRepository {
 
     }
 
-
+    /**
+     * @param animeEntity
+     * @param activityResultLauncher
+     **/
     public void updateAndDisplayFavoriteAnime(AnimeEntity animeEntity, ActivityResultLauncher<Intent> activityResultLauncher){
         Single<Response> result = JinkanClient.getInstance().getMyApi().getAnimes(animeEntity.getTitle(), 1)
                 .subscribeOn(Schedulers.io())
@@ -95,6 +116,10 @@ public class DataRepository {
         });
     }
 
+    /**
+     * @param intent
+     * @param anime
+     **/
     private void prepareIntent(Intent intent, AnimeEntity anime) {
         intent.putExtra("title", anime.getTitle());
         intent.putExtra("synopsis", anime.getSynopsis());
@@ -106,6 +131,10 @@ public class DataRepository {
         intent.putExtra("id", anime.getMal_id());
     }
 
+    /**
+     * @param search
+     * @param viewModel
+     **/
     public void searchAnime(String search, SearchViewModel viewModel){
         Single<Response> result = JinkanClient.getInstance().getMyApi().getAnimes(search, 50)
                 .subscribeOn(Schedulers.io())

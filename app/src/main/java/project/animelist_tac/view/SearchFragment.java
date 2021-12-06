@@ -25,7 +25,10 @@ import project.animelist_tac.data.DataRepository;
 import project.animelist_tac.databinding.SearchFragmentBinding;
 import project.animelist_tac.model.Anime;
 import project.animelist_tac.viewModel.SearchViewModel;
-
+/**
+ * Represent the class for the search fragment
+ * @author Leo Frere, Jeremy Curoux
+ * */
 public class SearchFragment extends Fragment {
 
     private SearchViewModel viewModel;

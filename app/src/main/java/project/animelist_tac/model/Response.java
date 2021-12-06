@@ -5,6 +5,10 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+/**
+ * Represent the class for the response
+ * @author Leo Frere, Jeremy Curoux
+ * */
 public class Response {
 
     @SerializedName("results")

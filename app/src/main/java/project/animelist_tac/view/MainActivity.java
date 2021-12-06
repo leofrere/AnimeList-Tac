@@ -12,6 +12,10 @@ import com.google.android.material.navigation.NavigationBarView;
 
 import project.animelist_tac.R;
 
+/**
+ * Represent the class for the Main
+ * @author Leo Frere, Jeremy Curoux
+ * */
 public class MainActivity extends AppCompatActivity {
 
     @Override

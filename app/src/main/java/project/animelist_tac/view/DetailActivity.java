@@ -18,6 +18,10 @@ import project.animelist_tac.data.localData.Entity.AnimeEntity;
 import project.animelist_tac.databinding.ActivityDetailBinding;
 import project.animelist_tac.model.Anime;
 
+/**
+ * Represent the class for the detail activity
+ * @author Leo Frere, Jeremy Curoux
+ * */
 public class DetailActivity extends AppCompatActivity {
 
     private int id;

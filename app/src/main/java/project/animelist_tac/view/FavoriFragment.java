@@ -26,6 +26,10 @@ import project.animelist_tac.data.localData.Entity.AnimeEntity;
 import project.animelist_tac.databinding.FavoriFragmentBinding;
 import project.animelist_tac.viewModel.FavoriViewModel;
 
+/**
+ * Represent the class for the favori fragment
+ * @author Leo Frere, Jeremy Curoux
+ * */
 public class FavoriFragment extends Fragment {
     private FavoriViewModel viewModel;
     private RecyclerView.LayoutManager layoutManager;

@@ -27,6 +27,10 @@ import project.animelist_tac.data.localData.Entity.AnimeEntity;
 import project.animelist_tac.model.Anime;
 import project.animelist_tac.view.DetailActivity;
 
+/**
+ * Represent the class for the search adapter
+ * @author Leo Frere, Jeremy Curoux
+ * */
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder> {
 
     private List<Anime> animeList;

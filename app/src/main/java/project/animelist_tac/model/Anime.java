@@ -5,6 +5,10 @@ import com.google.gson.annotations.SerializedName;
 
 import project.animelist_tac.data.localData.Entity.AnimeEntity;
 
+/**
+ * Represent the class for the anime
+ * @author Leo Frere, Jeremy Curoux
+ * */
 public class Anime {
     @SerializedName("mal_id")
     @Expose

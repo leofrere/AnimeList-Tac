@@ -10,6 +10,10 @@ import project.animelist_tac.data.DataRepository;
 import project.animelist_tac.model.Anime;
 import project.animelist_tac.view.SearchFragment;
 
+/**
+ * Represent the class for the search view model
+ * @author Leo Frere, Jeremy Curoux
+ * */
 public class SearchViewModel extends ViewModel {
 
     private SearchFragment fragment;
