@@ -58,18 +58,10 @@ public class FavoriAdapter extends RecyclerView.Adapter<FavoriAdapter.FavoriView
         holder.itemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
+                dataRepository.deleteFavoriteAnime(animeList.get(position));
                 removeLocalDataSet(position);
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position,getItemCount());
-                /*
-                Log.d("position2 ", animeList.toString());
-                Log.d("position2 ","taille :" +  String.valueOf(animeList.size()));
-                // a fixé problème au niveau du delete
-                dataRepository.deleteFavoriteAnime(animeList.remove(position));
-                Log.d("position3 ", String.valueOf(position));
-                Log.d("position2 ","taille :" +  String.valueOf(animeList.size()));
-                */
-                //removeLocalDataSet(position);
             }
         });
     }
