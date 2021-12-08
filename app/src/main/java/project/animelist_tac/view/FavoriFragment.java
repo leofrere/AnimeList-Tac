@@ -43,7 +43,7 @@ public class FavoriFragment extends Fragment {
         binding = FavoriFragmentBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         layoutManager = new LinearLayoutManager(view.getContext());
-        layoutManager = new GridLayoutManager(view.getContext(),3);
+        layoutManager = new GridLayoutManager(view.getContext(),2);
         binding.favoriteRecyclerView.setLayoutManager(layoutManager);
         viewModel = new FavoriViewModel(getContext());
         subscribeViewModel();

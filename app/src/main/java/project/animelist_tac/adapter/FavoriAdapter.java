@@ -2,9 +2,11 @@ package project.animelist_tac.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -52,6 +54,28 @@ public class FavoriAdapter extends RecyclerView.Adapter<FavoriAdapter.FavoriView
                 dataRepository.updateAndDisplayFavoriteAnime(animeList.get(position), activityResultLauncher);
             }
         });
+
+        holder.itemButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                removeLocalDataSet(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position,getItemCount());
+                /*
+                Log.d("position2 ", animeList.toString());
+                Log.d("position2 ","taille :" +  String.valueOf(animeList.size()));
+                // a fixé problème au niveau du delete
+                dataRepository.deleteFavoriteAnime(animeList.remove(position));
+                Log.d("position3 ", String.valueOf(position));
+                Log.d("position2 ","taille :" +  String.valueOf(animeList.size()));
+                */
+                //removeLocalDataSet(position);
+            }
+        });
+    }
+
+    private void removeLocalDataSet(int position) {
+        animeList.remove(position);
     }
 
     @Override
@@ -61,15 +85,21 @@ public class FavoriAdapter extends RecyclerView.Adapter<FavoriAdapter.FavoriView
 
     protected class FavoriViewHolder extends RecyclerView.ViewHolder{
 
+        public Button itemButton;
         private ImageView itemImage;
 
         public FavoriViewHolder(@NonNull View itemView) {
             super(itemView);
+            itemButton = itemView.findViewById(R.id.favoriteDelete);
             itemImage = itemView.findViewById(R.id.recyclerFavoriteImage);
         }
 
         public ImageView itemImage(){
             return itemImage;
+        }
+
+        public Button itemButton(){
+            return itemButton;
         }
     }
 

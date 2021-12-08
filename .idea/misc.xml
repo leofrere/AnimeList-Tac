@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/sever/AndroidStudioProjects/AnimeList-Tac/app/src/main/res/layout/favori_fragment.xml" value="0.17980072463768115" />
+        <entry key="..\:/Users/sever/AndroidStudioProjects/AnimeList-Tac/app/src/main/res/layout/favorite_recycler_item.xml" value="0.4" />
         <entry key="app/src/main/res/drawable/corner_radius_background.xml" value="0.33645833333333336" />
         <entry key="app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.190625" />
         <entry key="app/src/main/res/drawable/item_background_shape.xml" value="0.33645833333333336" />
