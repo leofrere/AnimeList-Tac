@@ -3,15 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/sever/AndroidStudioProjects/AnimeList-Tac/app/src/main/res/layout/favori_fragment.xml" value="0.17980072463768115" />
-        <entry key="..\:/Users/sever/AndroidStudioProjects/AnimeList-Tac/app/src/main/res/layout/favorite_recycler_item.xml" value="0.4" />
         <entry key="app/src/main/res/drawable/corner_radius_background.xml" value="0.33645833333333336" />
         <entry key="app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.190625" />
         <entry key="app/src/main/res/drawable/item_background_shape.xml" value="0.33645833333333336" />
         <entry key="app/src/main/res/layout/activity_detail.xml" value="0.5186718295949314" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.17447916666666666" />
         <entry key="app/src/main/res/layout/favori_fragment.xml" value="0.3203125" />
-        <entry key="app/src/main/res/layout/favorite_recycler_item.xml" value="0.3375834101111976" />
+        <entry key="app/src/main/res/layout/favorite_recycler_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout/recycler_view_item.xml" value="0.3926827186546629" />
         <entry key="app/src/main/res/layout/recycler_view_item_1.xml" value="0.18888888888888888" />
         <entry key="app/src/main/res/layout/search_fragment.xml" value="0.335" />
